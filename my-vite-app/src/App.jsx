@@ -19,7 +19,8 @@ const App = () => {
         // })
         // listen for new messages from the server
         socket.on('newMessage', (newMessage) => {
-            setMessages((prevMessages) => [...prevMessages, newMessage])
+            // setMessages((prevMessages) => [...prevMessages, newMessage])
+            setMessages(newMessage)
             // console.log('New message from server:', cat)
         })
 
@@ -55,13 +56,26 @@ const App = () => {
 
         // // clear the input field
         // setMessageInput('')
+
+        // manually update the state to trigger a re-render
+        // setMessages([...messages, { text: messageInput }])
+        // test to activate re-render by writing somewhat at app jsx and saving
+        
+        // update the state after a short delay bcs socket events are asynchronous, and there might be a delay before the server responds with the updated messages
+        setTimeout(() => {
+            setMessages([...messages, { text: messageInput }])
+        }, 100)
     }
 
     return (
         <div>
             {/* <h1>to run socketio</h1> */}
-            <div>{messages.map((msg, index) => (
+            {/* <div>{messages.map((msg, index) => (
                 <div key={index}>{msg.text}</div>
+            ))}
+            </div> */}
+             <div>{messages.map((cat, index) => (
+                <div key={index}>{cat.text}</div>
             ))}
             </div>
             <div>
