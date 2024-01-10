@@ -1,3 +1,68 @@
+# stretch goal
+since i heard from somewhere, that known feature of socket io is
+'broadcast' (broadcast msg to all connected user)
+and 
+make specific chat room, might better to have chance to test it.
+but bcs im bit tired and want to escape from here, ill stop here but leave something that i got from chatgpt. i may or may not implement this in future...
+
+
+io.on('connection', (socket) => {
+    console.log('New user connected');
+
+    // Emit a welcome message to the connected user
+    socket.emit('newMessage', {
+        from: 'Server',
+        text: 'Welcome to the chat!',
+        createdAt: new Date().getTime()
+    });
+
+    // Broadcast a message to all connected clients when a user connects
+    socket.broadcast.emit('newMessage', {
+        from: 'Server',
+        text: 'A new user has joined the chat!',
+        createdAt: new Date().getTime()
+    });
+
+    socket.on('createMessage', (newMessage) => {
+        console.log('newMessage', newMessage);
+
+        // Broadcast the new message to all connected clients
+        io.emit('newMessage', {
+            from: newMessage.from,
+            text: newMessage.text,
+            createdAt: new Date().getTime()
+        });
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+
+        // Broadcast a message to all connected clients when a user disconnects
+        io.emit('newMessage', {
+            from: 'Server',
+            text: 'A user has left the chat!',
+            createdAt: new Date().getTime()
+        });
+    });
+
+    socket.on('error', (error) => {
+        console.error('WebSocket error:', error);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # this part is not working and dk why
 from app.jsx
 return
