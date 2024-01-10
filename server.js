@@ -39,6 +39,9 @@ io.on('connection', (socket) => {
         messages.push(newMessage)
         // emit the updated messages array to all clients
         io.emit('newMessage', messages)
+
+        // send cat to the client to make state update
+        cat({ success: true })
     })
 
      socket.on('disconnect', () => {

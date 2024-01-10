@@ -48,10 +48,34 @@ const App = () => {
         setMessageInput(event.target.value)
     }
 
+    // const handleSendMessage = () => {
+    //     // emit a message from the user to the server
+    //     socket.emit('createMessage', {
+    //         text: messageInput
+    //     })
+
+    //     // // clear the input field
+    //     // setMessageInput('')
+
+    //     // manually update the state to trigger a re-render
+    //     // setMessages([...messages, { text: messageInput }])
+    //     // test to activate re-render by writing somewhat at app jsx and saving
+        
+    //     // update the state after a short delay bcs socket events are asynchronous, and there might be a delay before the server responds with the updated messages
+    //     setTimeout(() => {
+    //         setMessages([...messages, { text: messageInput }])
+    //     }, 100)
+    // }
+
     const handleSendMessage = () => {
         // emit a message from the user to the server
         socket.emit('createMessage', {
             text: messageInput
+        }, (cat) => {
+            // if cat received from the server
+            if (cat.success)
+            // update the state with the new message
+            setMessages([...messages, { text: messageInput }])
         })
 
         // // clear the input field
