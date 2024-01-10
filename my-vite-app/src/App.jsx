@@ -86,9 +86,9 @@ const App = () => {
         // test to activate re-render by writing somewhat at app jsx and saving
         
         // update the state after a short delay bcs socket events are asynchronous, and there might be a delay before the server responds with the updated messages
-        setTimeout(() => {
-            setMessages([...messages, { text: messageInput }])
-        }, 100)
+        // setTimeout(() => {
+        //     setMessages([...messages, { text: messageInput }])
+        // }, 100)
     }
 
     return (
