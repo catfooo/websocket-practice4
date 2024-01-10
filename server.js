@@ -17,18 +17,28 @@ const io = socketIO(server) // create socket io instance attached to http server
 //   };
   
 //   app.use(cors(corsOptions));
+
+// declare the messages array
+const messages = []
   
 io.on('connection', (socket) => {
     console.log('New user connected')
-    // emit message from server to user
-    socket.emit('newMessage', {
-        from:'jen@mds',
-        text:'hepppp',
-        createdAt:123
-    })
+    // // emit message from server to user
+    // socket.emit('newMessage', {
+    //     from:'jen@mds',
+    //     text:'hepppp',
+    //     createdAt:123
+    // })
+
+    // emit initial message to the connected user
+    socket.emit('newMessage', messages)
 
     socket.on('createMessage', (newMessage) => {
         console.log('newMessage', newMessage)
+        // push newMessage object into messages array
+        messages.push(newMessage)
+        // emit the updated messages array to all clients
+        io.emit('newMessage', messages)
     })
 
      socket.on('disconnect', () => {

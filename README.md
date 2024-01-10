@@ -1,3 +1,31 @@
+# this part is not working and dk why
+from app.jsx
+return
+
+
+<div>{messages.map((msg, index) => (
+                <div key={index}>{msg.text}</div>
+            ))}
+            </div>
+
+# however, when i first tried this, i could see things from 
+
+// // emit message from server to user
+    // socket.emit('newMessage', {
+    //     from:'jen@mds',
+    //     text:'hepppp',
+    //     createdAt:123
+    // })
+
+this, from server js.
+just text, 'hepppp'
+
+
+so like i could see this text over the input field, but just once,
+which indicates this can work by somehow, but couldnt find the way yet
+
+
+
 # node server.js
 
 # is there any way to fork twice?
